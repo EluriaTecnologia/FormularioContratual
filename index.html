@@ -431,7 +431,15 @@
                 if (input.required) {
                     const type = input.dataset.validate;
                     const value = input.value;
-                    const isValid = type ? validators[type](value) : value.length > 0;
+                    let isValid = false;
+
+                    // If field has specific validation type
+                    if (type && validators[type]) {
+                        isValid = validators[type](value);
+                    } else {
+                        // Fallback for fields without specific validation (just check not empty)
+                        isValid = value.trim().length > 0;
+                    }
                     
                     if (!isValid) {
                         allValid = false;
