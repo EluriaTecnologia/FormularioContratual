@@ -446,14 +446,19 @@
                 return;
             }
 
+            // Webhook Configuration
+            const WEBHOOK_URL = 'https://workflow.eluria.com.br/webhook-test/Dados_Contratos';
+
+            // Loading state
             submitBtn.disabled = true;
-            btnText.textContent = 'PROCESSANDO...';
+            btnText.textContent = 'ENVIANDO DADOS...';
             btnIcon.classList.add('hidden');
             btnLoading.classList.remove('hidden');
 
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
             
+            // Format date
             const [year, month, day] = data["Data do Contrato"].split('-');
             data["Data do Contrato"] = `${day}/${month}/${year}`;
             
@@ -461,21 +466,45 @@
             data.CEPCEPCEP = cepMask.unmaskedValue;
             data["Telefone do Contratante"] = telefoneMask.unmaskedValue;
             data.submittedAt = new Date().toISOString();
+            data.formMode = "production";
 
-            console.log('Final Data:', data);
-
-            setTimeout(() => {
-                formState.classList.add('hidden');
-                successState.classList.remove('hidden');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                
-                confetti({
-                    particleCount: 150,
-                    spread: 70,
-                    origin: { y: 0.6 },
-                    colors: ['#050A30', '#1a245a', '#ffffff']
+            try {
+                const response = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(data)
                 });
-            }, 2000);
+
+                if (response.ok) {
+                    console.log('Sucesso:', await response.text());
+                    
+                    formState.classList.add('hidden');
+                    successState.classList.remove('hidden');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    
+                    // Success Celebration
+                    confetti({
+                        particleCount: 150,
+                        spread: 70,
+                        origin: { y: 0.6 },
+                        colors: ['#050A30', '#1a245a', '#ffffff']
+                    });
+                } else {
+                    throw new Error('Erro no servidor');
+                }
+            } catch (error) {
+                console.error('Erro no envio:', error);
+                alert('Ocorreu um erro ao enviar os dados. Por favor, tente novamente.');
+                
+                // Reset button state
+                submitBtn.disabled = false;
+                btnText.textContent = 'TENTAR NOVAMENTE';
+                btnIcon.classList.remove('hidden');
+                btnLoading.classList.add('hidden');
+            }
         });
 
         // Auto-CEP
