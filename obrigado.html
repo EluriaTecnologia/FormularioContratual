@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agradecimento | Eluria</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        eluria: {
+                            navy: '#050A30',
+                            navyLight: '#1a245a',
+                            slate: '#F8FAFC',
+                            border: '#E2E8F0',
+                            text: '#1E293B',
+                            muted: '#64748B'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #F1F5F9; color: #1E293B; }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-6">
+    <div class="max-w-2xl w-full bg-white p-12 md:p-16 rounded-[2rem] shadow-2xl text-center border border-slate-100 animate-[fadeIn_0.5s_ease-out]">
+        <div class="w-24 h-24 bg-eluria-navy/5 rounded-full flex items-center justify-center mx-auto mb-10 ring-8 ring-eluria-navy/5">
+            <i data-lucide="scale" class="w-12 h-12 text-eluria-navy"></i>
+        </div>
+        
+        <h1 class="text-3xl md:text-4xl font-black text-eluria-navy mb-6 tracking-tight uppercase">
+            Recebimento Confirmado
+        </h1>
+        
+        <div class="w-16 h-1 bg-eluria-navy mx-auto rounded-full mb-8"></div>
+
+        <div class="space-y-6 text-eluria-text text-lg leading-relaxed">
+            <p>
+                Agradecemos o envio das informações preliminares.
+            </p>
+            <p>
+                Confirmamos que seus dados foram recepcionados com segurança em nosso sistema. Nossa equipe jurídica já foi notificada e iniciará a análise necessária para a elaboração do instrumento contratual.
+            </p>
+            <p class="font-bold text-eluria-navy">
+                Em breve, entraremos em contato através dos canais oficiais do escritório para alinhar os próximos passos.
+            </p>
+        </div>
+
+        <div class="mt-12 pt-8 border-t border-slate-100">
+            <p class="text-sm text-eluria-muted font-medium">
+                Atenciosamente,<br>
+                <span class="font-bold text-eluria-navy">Departamento Jurídico</span>
+            </p>
+        </div>
+        
+        <a href="https://eluria.com.br" class="inline-flex items-center gap-2 mt-8 text-sm font-bold text-eluria-navy hover:text-eluria-navyLight transition-colors">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            Voltar ao site principal
+        </a>
+    </div>
+    <script>lucide.createIcons();</script>
+</body>
+</html>
